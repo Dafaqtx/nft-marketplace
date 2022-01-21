@@ -11,7 +11,7 @@ export default function MyAssets() {
   const [nfts, setNfts] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
 
-  const loadNFTs = () => {
+  const loadNFTs = async () => {
     const web3Modal = new Web3Modal({
       network: "mainnet",
       cacheProvider: true,
@@ -26,7 +26,8 @@ export default function MyAssets() {
       signer
     );
     const tokenContract = new ethers.Contract(nftAddress, NFT.abi, provider);
-    const data = await marketContract.fetchMyNFTS();
+
+    const data = await marketContract.fetchMyNFTs();
 
     const items = await Promise.all(
       data.map(async (item) => {
